@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var vm: ToDoViewModel;
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List{
+            ForEach(vm.toDos){ todo in
+                Text(todo.text)
+            }
+            .onDelete { IndexSet in
+                vm.handleDeleteToDo(idx: IndexSet)
+            }
+        }
+        
     }
 }
 
 #Preview {
-    HomeView()
+//    HomeView()
 }

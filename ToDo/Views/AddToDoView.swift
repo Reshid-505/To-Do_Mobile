@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct AddToDoView: View {
+    @ObservedObject var vm: ToDoViewModel;
+    @State var toDoText: String = "";
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form{
+            Section{
+                TextField("To do text", text: $toDoText)
+            }
+            
+            Section{
+                Button{
+                    if(toDoText.trimmingCharacters(in: .whitespacesAndNewlines).count>0){
+                        vm.handeAddToDo(text: toDoText.trimmingCharacters(in: .whitespacesAndNewlines))
+                        toDoText = "";
+                    }
+                }label:{
+                    Label("Add", systemImage: "plus")
+                }
+            }
+            
+        }
     }
 }
 
 #Preview {
-    AddToDoView()
+//    AddToDoView()
 }
