@@ -10,12 +10,17 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var vm: ToDoViewModel;
     var body: some View {
-        List{
-            ForEach(vm.toDos){ todo in
-                Text(todo.text)
-            }
-            .onDelete { IndexSet in
-                vm.handleDeleteToDo(idx: IndexSet)
+        NavigationStack{
+            List{
+                ForEach(vm.toDos){ todo in
+                    NavigationLink(destination: ToDoDetailView(todo: todo)){
+                        Text(todo.text)                        
+                    }
+                    .navigationLinkIndicatorVisibility(.hidden)
+                }
+                .onDelete { IndexSet in
+                    vm.handleDeleteToDo(idx: IndexSet)
+                }
             }
         }
         
